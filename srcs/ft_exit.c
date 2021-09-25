@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 15:27:50 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/09/25 16:42:37 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/09/25 17:48:22 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,8 @@ void	ft_exit(t_data *data)
 	i = 0;
 	philo = (t_philo *)data->philo;
 	ft_join_thread(data);
-	if (data->must_eat != 0)
+	if (data->must_eat != 0 && data->life == 0)
 		ft_print("count reached\n");
-	// else if (data->life == 1)
-	// 	ft_print_action(philo, data, "died");
 	while (i < data->nb)
 	{
 		pthread_mutex_destroy(data->philo[i].left_f);

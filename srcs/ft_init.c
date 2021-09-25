@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 15:27:35 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/09/25 16:46:04 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/09/25 17:47:11 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,11 @@ int	ft_init_philo(t_data *data)
 		{
 			// si un philo est mort (si last_eat du philo[i] - start_time > ttd) mettre life a 1
 			// mutex die puis  je mets life a 1 puis print die du philo[i] puis unlock puis exit
-			if (data->philo[i].last_eat / 1000 > (unsigned int)data->die) //data->philo[i].last_eat - data->start_time
+			//printf("last_eat = %u die = %u\n", data->philo[i].last_eat / 1000, (unsigned int)data->die);
+			if (data->philo[i].last_eat > (unsigned int)data->die) //data->philo[i].last_eat - data->start_time
 			{
 				pthread_mutex_lock(data->dead);
-				dprintf(2, "philo %d died at %u ms\n", i, data->philo[i].last_eat / 1000);
+				//dprintf(2, "philo %d died at %u ms\n", i, data->philo[i].last_eat / 1000);
 				data->life = 1;
 				ft_print_action(&data->philo[i], data, "is dead"); // &data->philo[i] > ou data->philo + i
 				pthread_mutex_unlock(data->dead);
