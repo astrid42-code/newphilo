@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 15:08:04 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/09/25 16:29:07 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/09/26 16:34:16 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,20 @@ void	*ft_routine(void *philo)
 	philo_cp = (t_philo *)philo;
 	data = philo_cp->data;
 	if (philo_cp->philo_nb % 2 == 0)
-		usleep(100);
-	while (1)
-	//while (data->life == 0 && data->must_eat != data->nb)
+		usleep(1000); //> mettre un mutex init plutot le usleep 
+	// {
+	// 	pthread_mutex_lock(data->m_init);
+	// 	pthread_mutex_unlock(data->m_init);
+	// }
+	//while (1)
+	while (data->life == 0 && data->must_eat != data->nb)
 	{
 		//printf("data->start = %ld %d\n", data->start_time.tv_sec, data->start_time.tv_usec);
 		if (ft_launch_philo(philo_cp, data) == 1)
 			break ;
 		if (data->must_eat != 0)
 		{
+			//printf("c = %d\n", philo_cp->count);
 			if (philo_cp->count == data->must_eat)
 				break ;
 			philo_cp->count++;
@@ -68,15 +73,13 @@ void	*ft_time_to_eat(t_philo *philo, t_data *data)
 	pthread_mutex_lock(philo->left_f);
 	ft_print_action(philo, data, "has taken a (left) fork");
 	pthread_mutex_lock(philo->right_f);
-	philo->last_eat = ft_gettime(&data->start_time);
 	//data->time = ft_gettime(&data->start_time);
-	ft_usleep(data->eat);
 	ft_print_action(philo, data, "has taken a (right) fork");
+	philo->last_eat = ft_gettime(&data->start_time);
+	ft_usleep(data->eat);
 	ft_print_action(philo, data, "is eating");
 	pthread_mutex_unlock(philo->left_f);
 	pthread_mutex_unlock(philo->right_f);
-	//while (time < (unsigned long)data->eat)
-		// usleep(500);
 	return (NULL);
 }
 
@@ -84,7 +87,7 @@ void	*ft_time_to_sleep(t_philo *philo, t_data *data)
 {
 	ft_usleep(data->sleep);
 	ft_print_action(philo, data, "is sleeping");
-	usleep(100);
+	//usleep(100);
 	return (NULL);
 }
 

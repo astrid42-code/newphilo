@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 15:27:50 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/09/25 17:48:22 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/09/26 16:14:15 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,16 @@ void	ft_exit(t_data *data)
 
 	i = 0;
 	philo = (t_philo *)data->philo;
-	ft_join_thread(data);
-	if (data->must_eat != 0 && data->life == 0)
-		ft_print("count reached\n");
+	//ft_join_thread(data);
+	// if (data->must_eat != 0 && data->life == 0)
+	// 	ft_print("count reached\n");
 	while (i < data->nb)
 	{
 		pthread_mutex_destroy(data->philo[i].left_f);
 		i++;
 	}
 	pthread_mutex_destroy(data->write);
+	//puts("che");
 	//ft_free(data, philo);
 }
 

@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 15:41:11 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/09/22 18:46:44 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/09/26 15:57:41 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	main(int ac, char**av)
 	if (ft_init_data(&data, av, ac) == 1)
 	{
 		ft_exit(&data);
+		//puts("che2");
 		//ft_free(&data); // ou ft_exit?
 		return (1);
 	}

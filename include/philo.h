@@ -15,7 +15,7 @@ typedef struct s_philo
 	int				philo_nb;
 	//int				life;
 	int				count;
-	unsigned int	last_eat;
+	unsigned long	last_eat;
 	pthread_mutex_t	*left_f;
 	pthread_mutex_t	*right_f;
 	pthread_t		philo_thread;
@@ -32,6 +32,8 @@ typedef struct s_data
 	int				sleep;
 	int				must_eat;
 	int				life;
+	// pthread_mutex_t	*m_init;
+	// pthread_mutex_t	*m_count;
 	pthread_mutex_t	*write;
 	pthread_mutex_t	*dead;
 	t_timeval		start_time;
@@ -51,7 +53,8 @@ void			*ft_time_to_sleep(t_philo *philo,
 					t_data *data);
 void			*ft_time_to_think(t_philo *philo,
 					t_data *data);
-unsigned long	ft_gettime(t_timeval *start_time);
+long int		ft_gettime(t_timeval *start_time);
+unsigned long	ft_gettime_lasteat(unsigned long last_eat, t_data *data);
 
 // init / exit
 int				ft_init_data(t_data *data, char **av, int ac);
