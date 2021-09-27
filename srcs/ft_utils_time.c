@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_utils_time.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/19 15:41:11 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/09/27 11:54:36 by asgaulti         ###   ########.fr       */
+/*   Created: 2021/09/26 17:51:59 by asgaulti          #+#    #+#             */
+/*   Updated: 2021/09/26 17:52:37 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int ac, char**av)
+unsigned long	ft_gettime(t_timeval *start_time)
 {
-	t_data	data;
+	t_timeval	current;
+	unsigned long	time;
 
-	if (!(ac == 5 || ac == 6))
-	{
-		ft_print("Error : wrong number of arguments\n");
-		return (1);
-	}
-	if (ft_init_data(&data, av, ac) == 1)
-	{
-		puts("che2");
-		ft_exit(&data);
-		ft_check_end(&data);
-		//ft_free(&data); // ou ft_exit?
-		return (1);
-	}
-	ft_exit(&data);
-	return (0);
+	gettimeofday(&current, NULL);
+	time = (((current.tv_sec - start_time->tv_sec) * 1000000)
+			+ (current.tv_usec - start_time->tv_usec));
+	return (time);
+}
+
+unsigned long	ft_gettime_lasteat(unsigned long last_eat, t_data *data)
+{
+	long int	time;
+	
+	time = ft_gettime(&data->start_time);
+	return (time - last_eat);
 }

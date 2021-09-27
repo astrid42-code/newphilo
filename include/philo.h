@@ -49,11 +49,11 @@ void			*ft_routine(void *philo);
 int				ft_launch_philo(t_philo *philo, t_data *data);
 void			*ft_time_to_eat(t_philo *philo,
 					t_data *data);
-void			*ft_time_to_sleep(t_philo *philo,
-					t_data *data);
-void			*ft_time_to_think(t_philo *philo,
-					t_data *data);
-long int		ft_gettime(t_timeval *start_time);
+// void			*ft_time_to_sleep(t_philo *philo,
+// 					t_data *data);
+// void			*ft_time_to_think(t_philo *philo,
+// 					t_data *data);
+unsigned long	ft_gettime(t_timeval *start_time);
 unsigned long	ft_gettime_lasteat(unsigned long last_eat, t_data *data);
 
 // init / exit
@@ -61,6 +61,8 @@ int				ft_init_data(t_data *data, char **av, int ac);
 int				ft_init_mutex(t_data *data);
 void			ft_init_mutex_rfork(t_data *data);
 int				ft_init_philo(t_data *data);
+int				ft_init_data_phi(t_data *data);
+int				ft_reach_count(t_data *data);
 void			ft_exit(t_data *data);
 void			ft_join_thread(t_data *data);
 

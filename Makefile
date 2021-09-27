@@ -6,14 +6,14 @@
 #    By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/19 15:27:57 by asgaulti          #+#    #+#              #
-#    Updated: 2021/09/26 16:53:03 by asgaulti         ###   ########.fr        #
+#    Updated: 2021/09/26 17:52:47 by asgaulti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	philo
 
 SRCS	=	main.c ft_print.c ft_utils.c ft_check.c ft_init.c \
-			ft_exit.c ft_routine.c 
+			ft_exit.c ft_routine.c ft_utils_time.c 
 
 PATH_SRCS = srcs/
 

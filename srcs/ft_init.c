@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 15:27:35 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/09/26 16:42:57 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/09/27 11:57:19 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,48 @@ int	ft_init_philo(t_data *data)
 
 	i = 0;
 	gettimeofday(&data->start_time, NULL);
-	//printf("start = %ld %d\n", data->start_time.tv_sec, data->start_time.tv_usec);
-	//pthread_mutex_lock(data->m_init);
+	if (ft_init_data_phi(data) == 1)
+		return (1);
+	//while (1)
+	{
+	while (data->life == 0 || data->must_eat != 0)
+	{
+		//printf("life = %d\n", data->life);
+		i = 0;
+		while (++i < data->nb)
+		{
+				//puts("che");
+			if (ft_gettime_lasteat(data->philo[i].last_eat, data)
+				> (unsigned long)data->die)
+			{
+				//puts("che1");
+				pthread_mutex_lock(data->dead);
+				data->life = 1;
+				ft_print_action(&data->philo[i], data, "died");
+				pthread_mutex_unlock(data->dead);
+				//ft_join_thread(data);
+				return (1);
+			}
+			// condition a revoir : si count = must_eat rien ne s'affiche et si il meurt, il part en boucle
+	//printf("count = %d musteat = %d life = %d\n", data->philo->count, data->must_eat, data->life);
+			else if (data->philo->count == data->must_eat /*&& data->must_eat != 0*/ && data->life == 0)
+				return (ft_reach_count(data) && 1);
+			// else
+			// 	puts("che3");
+			//i++;
+			// if (i == data->nb)
+			// 	i = 0;
+		}
+	}
+	}
+	return (0);
+}
+
+int	ft_init_data_phi(t_data *data)
+{
+	int	i;
+
+	i = 0;
 	while (i < data->nb)
 	{
 		data->philo[i].philo_nb = i + 1;
@@ -57,43 +97,8 @@ int	ft_init_philo(t_data *data)
 			return (1);
 		i++;
 	}
-	//while (1)
-	while (data->life == 0 && data->must_eat != data->nb)
-	{
-		i = 0;
-		while (i < data->nb)
-		{
-			if (ft_gettime_lasteat(data->philo[i].last_eat, data)
-				> (unsigned long)data->die)
-			{
-				pthread_mutex_lock(data->dead);
-				data->life = 1;
-				ft_print_action(&data->philo[i], data, "died"); // &data->philo[i] > ou data->philo + i
-				pthread_mutex_unlock(data->dead);
-				//ft_exit(data);
-				//break ;
-				return (1);
-			}
-			if (data->philo->count == data->must_eat)
-			{
-				ft_join_thread(data);
-				ft_print("count reached\n");
-				ft_exit(data);
-				return (1);
-			}
-			i++;
-		}
-	}
-	// ft_exit(data);
 	return (0);
 }
-
-// pt de depart : timestamp (ie current)
-// a chaque fois qu ils mangent tu recuperes le timestamp
-// ensuite tu soustrais le start_time (on ne le touche jms) du last_eat
-
-// si le last_eat - start_time est > au time_to_die alos le philo est mort
-// dans ce cas variable life = 1 (au lieu de 0) et dire aux philos que si life == 1 > ca s arrete (ft_exit)
 
 int	ft_init_mutex(t_data *data)
 {
@@ -134,35 +139,4 @@ void	ft_init_mutex_rfork(t_data *data)
 		data->philo[i].right_f = (data->philo[(i + 1) % data->nb].left_f);
 		i++;
 	}
-}
-
-// a faire au debut de chaque repas / dodo
-//unsigned long	ft_gettime(t_timeval *start_time, t_timeval *start_action)
-long int	ft_gettime(t_timeval *start_time)
-{
-	// unsigned long	time;
-
-	// //printf("start_time = %ld %d\n start_eat = %ld %d\n", start_time->tv_sec, start_time->tv_usec, start_eat->tv_sec, start_eat->tv_usec);
-	// time = (unsigned long)(((start_action->tv_sec * 1000)
-	// 			+ (start_action->tv_usec * 0.001))
-	// 		- ((start_time->tv_sec * 1000) + (start_time->tv_usec * 0.001)));
-	t_timeval	current;
-	long int	time;
-
-	gettimeofday(&current, NULL);
-	time = (((current.tv_sec - start_time->tv_sec) * 1000000)
-			+ (current.tv_usec - start_time->tv_usec));
-	// time = (((start_action->tv_sec - start_time->tv_sec) * 1000000)
-	// 		+ (start_action->tv_usec - start_time->tv_usec));
-	// time en usec
-	//printf("time = %ld\n", time);
-	return (time);
-}
-
-unsigned long	ft_gettime_lasteat(unsigned long last_eat, t_data *data)
-{
-	long int	time;
-	
-	time = ft_gettime(&data->start_time);
-	return (time - last_eat);
 }
