@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 15:28:03 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/09/22 18:29:20 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/11/01 11:31:46 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ int	ft_check_data(t_data *data)
 		ft_print("Error : there are too many philosophers here!\n");
 		return (1);
 	}
-	else if (data->die < 60 || data->eat < 60 || data->sleep < 60
-		|| data->must_eat < 0)
+	else if (data->die / 1000 < 60 || data->eat / 1000 < 60
+		|| data->sleep / 1000 < 60 || data->must_eat < 0)
 	{
 		ft_print("Error : wrong parameters\n");
 		return (1);

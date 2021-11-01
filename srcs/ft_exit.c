@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 15:27:50 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/09/27 11:55:17 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/11/01 11:40:15 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,3 +65,14 @@ int	ft_check_death(t_philo *philo, t_data *data)
 		life = 1;
 }
 */
+
+int	ft_simple_exit(t_data *data)
+{
+	int		i;
+	t_philo	*philo;
+
+	i = 0;
+	philo = (t_philo *)data->philo;
+	//free(data);
+	return (1);
+}

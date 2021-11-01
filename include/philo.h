@@ -63,6 +63,7 @@ void			ft_init_mutex_rfork(t_data *data);
 int				ft_init_philo(t_data *data);
 int				ft_init_data_phi(t_data *data);
 int				ft_reach_count(t_data *data);
+int				ft_simple_exit(t_data *data);
 void			ft_exit(t_data *data);
 void			ft_join_thread(t_data *data);
 

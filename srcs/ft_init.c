@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 15:27:35 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/09/27 11:57:19 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/11/01 11:33:45 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_init_data(t_data *data, char **av, int ac)
 	else
 		data->must_eat = 0;
 	if (ft_check_arg(ac, av, data) == 1)
-		return (1);
+		return (2);
 	data->philo = malloc(sizeof(t_philo) * data->nb);
 	memset(data->philo, 0, sizeof(t_philo) * data->nb);
 	if (!data->philo || !data)
@@ -60,11 +60,12 @@ int	ft_init_philo(t_data *data)
 				> (unsigned long)data->die)
 			{
 				//puts("che1");
-				pthread_mutex_lock(data->dead);
-				data->life = 1;
-				ft_print_action(&data->philo[i], data, "died");
-				pthread_mutex_unlock(data->dead);
+				// pthread_mutex_lock(data->dead);
+				// data->life = 1;
+				// ft_print_action(&data->philo[i], data, "died");
+				// pthread_mutex_unlock(data->dead);
 				//ft_join_thread(data);
+				ft_check_end(data);
 				return (1);
 			}
 			// condition a revoir : si count = must_eat rien ne s'affiche et si il meurt, il part en boucle
