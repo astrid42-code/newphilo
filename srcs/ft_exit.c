@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 15:27:50 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/11/01 11:40:15 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/11/22 18:24:02 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ void	ft_exit(t_data *data)
 
 	i = 0;
 	philo = (t_philo *)data->philo;
-	ft_join_thread(data);
+puts("che");
+	//ft_join_thread(data);
+	// if (data->life == 1)
+	// 	pthread_mutex_unlock(data->dead);
 	// if (data->must_eat != 0 && data->life == 0)
 	// 	ft_print("count reached\n");
 	while (i < data->nb)
@@ -29,6 +32,8 @@ void	ft_exit(t_data *data)
 		i++;
 	}
 	pthread_mutex_destroy(data->write);
+	// if (data->life == 1)
+	// 	pthread_mutex_unlock(data->dead);
 	//puts("che");
 	//ft_free(data, philo);
 }
@@ -54,17 +59,10 @@ void	ft_join_thread(t_data *data)
 	i = 0;
 	while (i < data->nb)
 	{
-		 pthread_join(data->philo[i].philo_thread, NULL);
-		 i++;
+		pthread_join(data->philo[i].philo_thread, NULL);
+		i++;
 	}
 }
-/*
-int	ft_check_death(t_philo *philo, t_data *data)
-{
-	if (data->time - data->start_time > data->die)
-		life = 1;
-}
-*/
 
 int	ft_simple_exit(t_data *data)
 {

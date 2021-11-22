@@ -6,7 +6,7 @@
 #    By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/19 15:27:57 by asgaulti          #+#    #+#              #
-#    Updated: 2021/09/26 17:52:47 by asgaulti         ###   ########.fr        #
+#    Updated: 2021/11/22 18:27:55 by asgaulti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,12 +19,12 @@ PATH_SRCS = srcs/
 
 OBJS	=	${addprefix ${PATH_SRCS}, ${SRCS:.c=.o}}
 
-CC		=	clang
+CC		=	clang 
 #clang-9 
 RM		=	rm -f
 CFLAGS	=	-Wall -Werror -Wextra
 #CFLAGS	+= -g3 -fsanitize=address
-#CFLAGS	+= -g3 -fsanitize=thread
+CFLAGS	+= -g3 -fsanitize=thread
 
 INCL	=	include
 
@@ -32,7 +32,7 @@ INCL	=	include
 			${CC} ${CFLAGS} -I${INCL} -g -c $< -o ${<:.c=.o}
 
 $(NAME):	${OBJS}
-			${CC} ${CFLAGS} ${LFLAGS} ${OBJS} -o ${NAME}
+			${CC} ${CFLAGS} ${LFLAGS} ${OBJS} -o ${NAME} -lpthread
 
 all:		${NAME}
 

@@ -13,7 +13,7 @@ typedef struct timeval	t_timeval;
 typedef struct s_philo
 {
 	int				philo_nb;
-	//int				life;
+	int				phi_life;
 	int				count;
 	unsigned long	last_eat;
 	pthread_mutex_t	*left_f;
