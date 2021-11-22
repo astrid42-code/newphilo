@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astridgaultier <astridgaultier@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 15:27:50 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/11/22 18:24:02 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/11/22 22:14:33 by astridgault      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_exit(t_data *data)
 
 	i = 0;
 	philo = (t_philo *)data->philo;
-puts("che");
+	puts("che");
 	//ft_join_thread(data);
 	// if (data->life == 1)
 	// 	pthread_mutex_unlock(data->dead);

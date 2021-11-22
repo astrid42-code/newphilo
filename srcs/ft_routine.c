@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_routine.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astridgaultier <astridgaultier@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 15:08:04 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/09/27 11:44:42 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/11/22 22:19:12 by astridgault      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	*ft_routine(void *philo)
 	philo_cp = (t_philo *)philo;
 	data = philo_cp->data;
 	if (philo_cp->philo_nb % 2 == 0)
-		usleep(1000); //> mettre un mutex init plutot le usleep 
-	while (data->life == 0 || data->must_eat != 0)
+		usleep(1000);
+	while (data->life == 0)
 	{
 		if (ft_launch_philo(philo_cp, data) == 1)
 			break ;

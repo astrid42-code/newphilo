@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astridgaultier <astridgaultier@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 15:27:35 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/11/22 18:34:29 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/11/22 22:19:57 by astridgault      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	ft_init_philo(t_data *data)
 			// condition a revoir : si count = must_eat rien ne s'affiche et si il meurt, il part en boucle
 	//printf("count = %d musteat = %d life = %d\n", data->philo->count, data->must_eat, data->life);
 			else if (data->philo->count == data->must_eat /*&& data->must_eat != 0*/ && data->life == 0)
-				return (ft_reach_count(data) && 1);
+				return (ft_reach_count(data));
 			//pthread_mutex_unlock(data->dead);
 			// else
 			// 	puts("che3");
