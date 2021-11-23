@@ -6,7 +6,7 @@
 /*   By: astridgaultier <astridgaultier@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 15:27:35 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/11/22 22:19:57 by astridgault      ###   ########.fr       */
+/*   Updated: 2021/11/23 15:03:11 by astridgault      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ int	ft_init_philo(t_data *data)
 				data->life = 1;
 				pthread_mutex_unlock(data->dead);
 				ft_print_action(&data->philo[i], data, "died");
-				puts("che1");
+				pthread_mutex_unlock(data->dead);
+				//puts("che1");
 				ft_join_thread(data);
-				//pthread_mutex_unlock(data->dead);
 				return (1);
 			}
 			// condition a revoir : si count = must_eat rien ne s'affiche et si il meurt, il part en boucle

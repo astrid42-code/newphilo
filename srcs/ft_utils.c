@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astridgaultier <astridgaultier@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 15:28:07 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/09/25 16:20:21 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/11/23 14:41:48 by astridgault      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,4 @@ void	ft_usleep(unsigned int wait)
 	gettimeofday(&time, NULL);
 	while (ft_gettime(&time) < wait)
 		usleep(500);
-}
-
-int	ft_check_end(t_data *data)
-{
-	pthread_mutex_lock(data->dead);
-	if (data->life == 1)
-	{
-		pthread_mutex_unlock(data->dead);
-		return (1);
-	}
-	pthread_mutex_unlock(data->dead);
-	return (0);
 }

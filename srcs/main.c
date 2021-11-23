@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astridgaultier <astridgaultier@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 15:41:11 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/11/22 15:23:39 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/11/23 15:50:25 by astridgault      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int ac, char**av)
 		//ft_check_end(&data);
 		else
 		{
-		puts("che2");
+		//puts("che2");
 			ft_exit(&data);	
 		}
 		//ft_free(&data); // ou ft_exit?

@@ -6,7 +6,7 @@
 /*   By: astridgaultier <astridgaultier@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 15:27:50 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/11/22 22:14:33 by astridgault      ###   ########.fr       */
+/*   Updated: 2021/11/23 15:53:03 by astridgault      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_exit(t_data *data)
 
 	i = 0;
 	philo = (t_philo *)data->philo;
-	puts("che");
+	//puts("che");
 	//ft_join_thread(data);
 	// if (data->life == 1)
 	// 	pthread_mutex_unlock(data->dead);
@@ -73,4 +73,17 @@ int	ft_simple_exit(t_data *data)
 	philo = (t_philo *)data->philo;
 	//free(data);
 	return (1);
+}
+
+int	ft_check_end(t_data *data)
+{
+	pthread_mutex_lock(data->dead);
+	if (data->life == 1)
+	{
+	//printf("life2 = %d\n", data->life);
+		pthread_mutex_unlock(data->dead);
+		return (1);
+	}
+	pthread_mutex_unlock(data->dead);
+	return (0);
 }
