@@ -6,7 +6,7 @@
 /*   By: astridgaultier <astridgaultier@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 15:28:19 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/11/23 15:03:05 by astridgault      ###   ########.fr       */
+/*   Updated: 2021/11/23 22:11:06 by astridgault      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,10 @@ void	ft_print_action(t_philo *philo, t_data *data, char *str)
 	//pthread_mutex_unlock(data->dead);
 	pthread_mutex_unlock(data->write);
 	}
+}
+
+void	ft_print_one(t_data *data)
+{
+	printf("%d ", data->die / 1000);
+	printf("philo 1 is dead\n");
 }

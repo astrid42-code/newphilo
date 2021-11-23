@@ -6,7 +6,7 @@
 /*   By: astridgaultier <astridgaultier@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 15:08:04 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/11/23 15:53:44 by astridgault      ###   ########.fr       */
+/*   Updated: 2021/11/23 16:29:46 by astridgault      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,23 @@ void	*ft_routine(void *philo)
 			break ;
 		if (data->must_eat != 0)
 		{
+		/*a regler ailleurs pour qu'ils meurent avant le nbr de repas
+			if (ft_gettime_lasteat(data->philo[i].last_eat, data)
+			printf("c = %d life = %d\n", philo_cp->count, data->life);
+				> (unsigned long)data->die)
+			{
+				pthread_mutex_lock(data->dead);
+				data->life = 1;
+				pthread_mutex_unlock(data->dead);
+				ft_print_action(&data->philo[i], data, "died");
+				pthread_mutex_unlock(data->dead);
+				//puts("che1");
+				ft_join_thread(data);
+				ft_exit(data);
+				//return (1);
+				break;
+			}
+			*/
 			if (philo_cp->count == data->must_eat)
 				break ;
 			philo_cp->count++;

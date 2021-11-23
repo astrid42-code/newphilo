@@ -61,6 +61,7 @@ void			ft_join_thread(t_data *data);
 // utils
 void			ft_print(char *str);
 void			ft_print_action(t_philo *philo, t_data *data, char *str);
+void			ft_print_one(t_data *data);
 int				ft_strlen(char *str);
 int				ft_atoi(char *str);
 void			ft_free(t_data *data, t_philo *philo);
