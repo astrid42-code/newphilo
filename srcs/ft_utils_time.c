@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 17:51:59 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/11/22 11:26:52 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/11/24 10:37:27 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 unsigned long	ft_gettime(t_timeval *start_time)
 {
-	t_timeval	current;
+	t_timeval		current;
 	unsigned long	time;
 
 	gettimeofday(&current, NULL);

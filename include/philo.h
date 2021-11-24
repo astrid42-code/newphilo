@@ -44,6 +44,7 @@ int				main(int ac, char **av);
 void			*ft_routine(void *philo);
 int				ft_launch_philo(t_philo *philo, t_data *data);
 int				ft_time_to_eat(t_philo *philo, t_data *data);
+int				ft_take_fork(t_philo *philo, t_data *data);
 unsigned long	ft_gettime(t_timeval *start_time);
 unsigned long	ft_gettime_lasteat(unsigned long last_eat, t_data *data);
 

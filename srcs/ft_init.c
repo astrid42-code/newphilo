@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astridgaultier <astridgaultier@student.    +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 15:27:35 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/11/23 15:03:11 by astridgault      ###   ########.fr       */
+/*   Updated: 2021/11/24 10:30:10 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,39 +47,27 @@ int	ft_init_philo(t_data *data)
 	gettimeofday(&data->start_time, NULL);
 	if (ft_init_data_phi(data) == 1)
 		return (1);
-	//while (1)
-	{
-	while (data->life == 0 || data->must_eat != 0)
+	while (data->life == 0/* || data->must_eat != 0*/)
 	{
 		i = 0;
+		//printf("lasteat = %lu die %d\n", ft_gettime_lasteat(data->philo[i].last_eat, data), data->die);
 		while (++i < data->nb)
 		{
-				//puts("che");
-		//printf("lasteat = %lu die %d\n", ft_gettime_lasteat(data->philo[i].last_eat, data), data->die);
 			if (ft_gettime_lasteat(data->philo[i].last_eat, data)
 				> (unsigned long)data->die)
 			{
 				pthread_mutex_lock(data->dead);
 				data->life = 1;
 				pthread_mutex_unlock(data->dead);
+				//printf("count = %d musteat = %d life = %d\n", data->philo->count, data->must_eat, data->life);
 				ft_print_action(&data->philo[i], data, "died");
 				pthread_mutex_unlock(data->dead);
-				//puts("che1");
 				ft_join_thread(data);
 				return (1);
 			}
-			// condition a revoir : si count = must_eat rien ne s'affiche et si il meurt, il part en boucle
-	//printf("count = %d musteat = %d life = %d\n", data->philo->count, data->must_eat, data->life);
 			else if (data->philo->count == data->must_eat /*&& data->must_eat != 0*/ && data->life == 0)
 				return (ft_reach_count(data));
-			//pthread_mutex_unlock(data->dead);
-			// else
-			// 	puts("che3");
-			//i++;
-			// if (i == data->nb)
-			// 	i = 0;
 		}
-	}
 	}
 	return (0);
 }

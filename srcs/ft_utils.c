@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astridgaultier <astridgaultier@student.    +#+  +:+       +#+        */
+/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 15:28:07 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/11/23 14:41:48 by astridgault      ###   ########.fr       */
+/*   Updated: 2021/11/24 10:28:41 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,5 @@ void	ft_usleep(unsigned int wait)
 
 	gettimeofday(&time, NULL);
 	while (ft_gettime(&time) < wait)
-		usleep(500);
+		usleep(1000);
 }

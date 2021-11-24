@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: astridgaultier <astridgaultier@student.    +#+  +:+       +#+         #
+#    By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/19 15:27:57 by asgaulti          #+#    #+#              #
-#    Updated: 2021/11/22 22:22:42 by astridgault      ###   ########.fr        #
+#    Updated: 2021/11/24 10:19:13 by asgaulti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ CC		=	clang
 #clang-9 
 RM		=	rm -f
 CFLAGS	=	-Wall -Werror -Wextra
-CFLAGS	+= -g3 -fsanitize=address
+#CFLAGS	+= -g3 -fsanitize=address
 #CFLAGS	+= -g3 -fsanitize=thread
 
 INCL	=	include
