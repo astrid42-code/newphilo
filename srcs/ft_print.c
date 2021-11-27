@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 15:28:19 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/11/24 10:30:49 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/11/27 15:32:40 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@ void	ft_print_action(t_philo *philo, t_data *data, char *str)
 	if (data->life == 0)
 	{
 		pthread_mutex_unlock(data->dead);
+		//data->time = ft_gettime(&data->start_time);
+		pthread_mutex_lock(data->m_time);
 		data->time = ft_gettime(&data->start_time);
 		printf("%ld ", data->time / 1000);
+		pthread_mutex_unlock(data->m_time);
 		printf("philo %d %s\n", philo->philo_nb, str);
 		pthread_mutex_unlock(data->write);
 	}
@@ -40,6 +43,7 @@ void	ft_print_action(t_philo *philo, t_data *data, char *str)
 
 void	ft_print_one(t_data *data)
 {
+	printf("0 philo 1 has taken a fork\n");
 	printf("%d ", data->die / 1000);
 	printf("philo 1 is dead\n");
 }

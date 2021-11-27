@@ -18,6 +18,7 @@ typedef struct s_philo
 	unsigned long	last_eat;
 	pthread_mutex_t	*left_f;
 	pthread_mutex_t	*right_f;
+	pthread_mutex_t	*m_last_eat;
 	pthread_t		philo_thread;
 	struct s_data	*data;
 }				t_philo;
@@ -25,13 +26,13 @@ typedef struct s_philo
 typedef struct s_data
 {
 	int				nb;
-	int				turn;
 	int				die;
 	int				eat;
 	int				sleep;
 	int				must_eat;
 	int				life;
 	pthread_mutex_t	*write;
+	pthread_mutex_t	*m_time;
 	pthread_mutex_t	*dead;
 	t_timeval		start_time;
 	unsigned long	time;
@@ -46,7 +47,7 @@ int				ft_launch_philo(t_philo *philo, t_data *data);
 int				ft_time_to_eat(t_philo *philo, t_data *data);
 int				ft_take_fork(t_philo *philo, t_data *data);
 unsigned long	ft_gettime(t_timeval *start_time);
-unsigned long	ft_gettime_lasteat(unsigned long last_eat, t_data *data);
+unsigned long	ft_gettime_lasteat(/*unsigned long last_eat,*/ int i, t_data *data);
 
 // init / exit
 int				ft_init_data(t_data *data, char **av, int ac);

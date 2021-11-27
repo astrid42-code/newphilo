@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 15:08:04 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/11/24 10:36:54 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/11/27 15:45:50 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,14 @@ void	*ft_routine(void *philo)
 	data = philo_cp->data;
 	if (philo_cp->philo_nb % 2 == 0)
 		usleep(1000);
+	//pthread_mutex_lock(data->dead);
 	while (data->life == 0)
 	{
+		//pthread_mutex_unlock(data->dead);
 		if (ft_launch_philo(philo_cp, data) == 1)
+		{
 			break ;
+		}
 		if (data->must_eat != 0)
 		{
 		// a regler : ils doivent pouvoir mourir avant le nbr de repas
@@ -42,8 +46,13 @@ int	ft_launch_philo(t_philo *philo, t_data *data)
 {
 	if (ft_check_end(data) == 1)
 		return (1);
+	pthread_mutex_lock(data->dead);
 	if (ft_time_to_eat(philo, data) == 1)
+	{
+		
 		return (1);
+	}
+	pthread_mutex_unlock(data->dead);
 	if (ft_check_end(data) == 1)
 		return (1);
 	ft_usleep(data->sleep);
@@ -58,6 +67,7 @@ int	ft_launch_philo(t_philo *philo, t_data *data)
 
 int	ft_time_to_eat(t_philo *philo, t_data *data)
 {
+	pthread_mutex_unlock(data->dead);
 	if (ft_take_fork(philo, data) == 1)
 		return (1);
 	ft_print_action(philo, data, "has taken a (left) fork");
@@ -69,7 +79,9 @@ int	ft_time_to_eat(t_philo *philo, t_data *data)
 		return (1);
 	}	
 	ft_print_action(philo, data, "has taken a (right) fork");
+	pthread_mutex_lock(philo->m_last_eat);
 	philo->last_eat = ft_gettime(&data->start_time);
+	pthread_mutex_unlock(philo->m_last_eat);
 	ft_usleep(data->eat);
 	if (ft_check_end(data) == 1)
 	{

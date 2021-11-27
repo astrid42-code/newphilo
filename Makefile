@@ -6,7 +6,7 @@
 #    By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/19 15:27:57 by asgaulti          #+#    #+#              #
-#    Updated: 2021/11/24 10:19:13 by asgaulti         ###   ########.fr        #
+#    Updated: 2021/11/27 15:39:04 by asgaulti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ CC		=	clang
 RM		=	rm -f
 CFLAGS	=	-Wall -Werror -Wextra
 #CFLAGS	+= -g3 -fsanitize=address
-#CFLAGS	+= -g3 -fsanitize=thread
+CFLAGS	+= -g3 -fsanitize=thread
 
 INCL	=	include
 
@@ -33,7 +33,7 @@ INCL	=	include
 
 $(NAME):	${OBJS}
 			${CC} ${CFLAGS} ${LFLAGS} ${OBJS} -o ${NAME} -lpthread
-
+#attention : proble avec .h?
 all:		${NAME}
 
 clean:

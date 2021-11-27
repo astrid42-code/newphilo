@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 17:51:59 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/11/24 10:37:27 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/11/27 15:40:54 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,19 @@ unsigned long	ft_gettime(t_timeval *start_time)
 	return (time);
 }
 
-unsigned long	ft_gettime_lasteat(unsigned long last_eat, t_data *data)
+unsigned long	ft_gettime_lasteat(/*unsigned long last_eat, */int i, t_data *data)
 {
-	long int	time;
+	long int		time;
+	unsigned long	res;
 
+	pthread_mutex_lock(data->philo[i].m_last_eat);
 	time = ft_gettime(&data->start_time);
-	return ((time - last_eat));
+	res = time - data->philo[i].last_eat;
+	if (res > (unsigned long)data->die)
+	{
+		pthread_mutex_unlock(data->philo[i].m_last_eat);
+		return (1);
+	}
+	pthread_mutex_unlock(data->philo[i].m_last_eat);
+	return (0);
 }
