@@ -19,6 +19,7 @@ typedef struct s_philo
 	pthread_mutex_t	*left_f;
 	pthread_mutex_t	*right_f;
 	pthread_mutex_t	*m_last_eat;
+	pthread_mutex_t	*m_count;
 	pthread_t		philo_thread;
 	struct s_data	*data;
 }				t_philo;
@@ -48,6 +49,7 @@ int				ft_time_to_eat(t_philo *philo, t_data *data);
 int				ft_take_fork(t_philo *philo, t_data *data);
 unsigned long	ft_gettime(t_timeval *start_time);
 unsigned long	ft_gettime_lasteat(/*unsigned long last_eat,*/ int i, t_data *data);
+int				ft_check_count(t_data *data);
 
 // init / exit
 int				ft_init_data(t_data *data, char **av, int ac);

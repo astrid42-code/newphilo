@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 15:28:07 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/11/24 17:38:04 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/11/30 11:55:50 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,5 @@ void	ft_usleep(unsigned int wait)
 
 	gettimeofday(&time, NULL);
 	while (ft_gettime(&time) < wait)
-		usleep(500);
+		usleep(50);
 }
