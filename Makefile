@@ -6,7 +6,7 @@
 #    By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/19 15:27:57 by asgaulti          #+#    #+#              #
-#    Updated: 2021/11/30 12:37:34 by asgaulti         ###   ########.fr        #
+#    Updated: 2021/12/02 15:57:50 by asgaulti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ CC		=	clang
 RM		=	rm -f
 CFLAGS	=	-Wall -Werror -Wextra
 #CFLAGS	+= -g3 -fsanitize=address
-CFLAGS	+= -g3 -fsanitize=thread
+#CFLAGS	+= -g3 -fsanitize=thread
 
 INCL	=	include
 

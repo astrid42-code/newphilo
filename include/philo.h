@@ -35,6 +35,7 @@ typedef struct s_data
 	pthread_mutex_t	*write;
 	pthread_mutex_t	*m_time;
 	pthread_mutex_t	*dead;
+	pthread_mutex_t	*synchro;
 	t_timeval		start_time;
 	unsigned long	time;
 	t_philo			*philo;

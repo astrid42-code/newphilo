@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 15:27:35 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/11/30 12:38:57 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/02 17:07:38 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	ft_init_data(t_data *data, char **av, int ac)
 	data->die = ft_atoi(av[2]) * 1000;
 	data->eat = ft_atoi(av[3]) * 1000;
 	data->sleep = ft_atoi(av[4]) * 1000;
+	data->life = 0;
 	if (ac == 6)
 		data->must_eat = ft_atoi(av[5]);
 	else
@@ -45,8 +46,13 @@ int	ft_init_philo(t_data *data)
 
 	i = 0;
 	gettimeofday(&data->start_time, NULL);
+	pthread_mutex_lock(data->synchro);
 	if (ft_init_data_phi(data) == 1)
+	{
+		pthread_mutex_unlock(data->synchro);
 		return (1);
+	}
+	pthread_mutex_unlock(data->synchro);
 	while (!ft_check_end(data)) // = ft_check_end(data) == 0
 	{
 		i = 0;
@@ -60,10 +66,8 @@ int	ft_init_philo(t_data *data)
 				pthread_mutex_lock(data->dead);
 				data->life = 1;
 				pthread_mutex_unlock(data->dead);
-				//puts("che");
 				//printf("count = %d musteat = %d life = %d\n", data->philo->count, data->must_eat, data->life);
 				ft_print_action(&data->philo[i], data, "died");
-				//pthread_mutex_unlock(data->dead);
 				ft_join_thread(data);
 				return (1);
 			}
@@ -107,7 +111,8 @@ int	ft_init_mutex(t_data *data)
 		data->philo[i].left_f = malloc(sizeof(pthread_mutex_t));
 		data->philo[i].m_count = malloc(sizeof(pthread_mutex_t));
 		if (pthread_mutex_init(data->philo[i].left_f, NULL)
-			|| pthread_mutex_init(data->philo[i].m_last_eat, NULL))
+			|| pthread_mutex_init(data->philo[i].m_last_eat, NULL)
+			|| pthread_mutex_init(data->philo[i].m_count, NULL))
 		{
 			ft_print("Error in mutex\n");
 			return (1);
@@ -118,8 +123,11 @@ int	ft_init_mutex(t_data *data)
 	data->write = malloc(sizeof(pthread_mutex_t)); // malloc pas forcement utile
 	data->m_time = malloc(sizeof(pthread_mutex_t)); // malloc pas forcement utile
 	data->dead = malloc(sizeof(pthread_mutex_t)); // malloc pas forcement utile
+	data->synchro = malloc(sizeof(pthread_mutex_t));
 	if (pthread_mutex_init(data->write, NULL)
-		|| pthread_mutex_init(data->dead, NULL))
+		|| pthread_mutex_init(data->dead, NULL)
+		|| pthread_mutex_init(data->m_time, NULL)
+		|| pthread_mutex_init(data->synchro, NULL))
 	{
 		ft_print("Error in mutex\n");
 		return (1);

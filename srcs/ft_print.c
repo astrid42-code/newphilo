@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 15:28:19 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/11/30 12:13:23 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/02 16:22:14 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	ft_print_action(t_philo *philo, t_data *data, char *str)
 	if (data->life == 0)
 	{
 		pthread_mutex_unlock(data->dead);
-		//data->time = ft_gettime(&data->start_time);
 		pthread_mutex_lock(data->m_time);
 		data->time = ft_gettime(&data->start_time);
 		printf("%ld ", data->time / 1000);
@@ -35,8 +34,10 @@ void	ft_print_action(t_philo *philo, t_data *data, char *str)
 	else
 	{
 		pthread_mutex_unlock(data->dead);
+		pthread_mutex_lock(data->m_time);
 		data->time = ft_gettime(&data->start_time);
 		printf("%ld ", data->time / 1000);
+		pthread_mutex_unlock(data->m_time);
 		printf("philo %d %s\n", philo->philo_nb, str);
 		pthread_mutex_unlock(data->write);
 	}

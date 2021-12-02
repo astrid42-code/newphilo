@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 15:08:04 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/11/30 11:52:33 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/02 17:10:31 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,20 @@ void	*ft_routine(void *philo)
 	i = 0;
 	philo_cp = (t_philo *)philo;
 	data = philo_cp->data;
-	// if (philo_cp->philo_nb % 2 == 0)
-	// 	usleep(1000);
+	pthread_mutex_lock(data->synchro);
+	pthread_mutex_unlock(data->synchro);
+	if (philo_cp->philo_nb % 2 == 0)
+	{
+		//printf("paf = %d\n", philo_cp->philo_nb);
+		usleep(1000);
+	}
+		//printf("pouf = %d\n", philo_cp->philo_nb);
+	
 	//pthread_mutex_lock(data->dead);
 	//while (data->life == 0)
 	while (ft_check_end(data) == 0)
 	{
-		//pthread_mutex_unlock(data->dead);
+	//	pthread_mutex_unlock(data->dead);
 		if (ft_launch_philo(philo_cp, data) == 1)
 		{
 			break ;
@@ -52,12 +59,10 @@ int	ft_launch_philo(t_philo *philo, t_data *data)
 {
 	if (ft_check_end(data) == 1)
 		return (1);
-	//pthread_mutex_lock(data->dead);
 	if (ft_time_to_eat(philo, data) == 1)
 	{
 		return (1);
 	}
-	//pthread_mutex_unlock(data->dead);
 	if (ft_check_end(data) == 1)
 		return (1);
 	ft_usleep(data->sleep);
@@ -74,30 +79,41 @@ int	ft_time_to_eat(t_philo *philo, t_data *data)
 {
 	if (ft_take_fork(philo, data) == 1)
 		return (1);
-	ft_print_action(philo, data, "has taken a (left) fork");
+	pthread_mutex_lock(philo->m_last_eat);
+	philo->last_eat = ft_gettime(&data->start_time);
+	pthread_mutex_unlock(philo->m_last_eat);
+	if (ft_check_end(data) == 1)
+	{
+		pthread_mutex_unlock(philo->left_f);
+		pthread_mutex_unlock(philo->right_f);
+		return (1);
+	}
+	ft_print_action(philo, data, "is eating");
+	ft_usleep(data->eat);
 	pthread_mutex_unlock(philo->left_f);
+	pthread_mutex_unlock(philo->right_f);
+	return (0);
+}
+
+int	ft_take_fork(t_philo *philo, t_data *data)
+{
+	//printf("l %p r %p\n", philo->left_f, philo->right_f);
+	pthread_mutex_lock(philo->left_f);
 	pthread_mutex_lock(philo->right_f);
 	if (ft_check_end(data) == 1)
 	{
-		//pthread_mutex_unlock(philo->left_f);
+		pthread_mutex_unlock(philo->left_f);
+		pthread_mutex_unlock(philo->right_f);
+		return (1);
+	}
+	ft_print_action(philo, data, "has taken a (left) fork");
+	if (ft_check_end(data) == 1)
+	{
+		pthread_mutex_unlock(philo->left_f);
 		pthread_mutex_unlock(philo->right_f);
 		return (1);
 	}	
 	ft_print_action(philo, data, "has taken a (right) fork");
-	pthread_mutex_unlock(philo->right_f);
-	pthread_mutex_lock(philo->m_last_eat);
-	philo->last_eat = ft_gettime(&data->start_time);
-	pthread_mutex_unlock(philo->m_last_eat);
-	ft_usleep(data->eat);
-	if (ft_check_end(data) == 1)
-	{
-		//pthread_mutex_unlock(philo->left_f);
-		//pthread_mutex_unlock(philo->right_f);
-		return (1);
-	}
-	ft_print_action(philo, data, "is eating");
-	//pthread_mutex_unlock(philo->left_f);
-	//pthread_mutex_unlock(philo->right_f);
 	return (0);
 }
 
@@ -107,16 +123,4 @@ int	ft_reach_count(t_data *data)
 	ft_print("count reached\n");
 	ft_exit(data);
 	return (1);
-}
-
-int	ft_take_fork(t_philo *philo, t_data *data)
-{
-	pthread_mutex_lock(philo->left_f);
-	if (ft_check_end(data) == 1)
-	{
-		pthread_mutex_unlock(philo->left_f);
-		return (1);
-	}
-	//pthread_mutex_unlock(philo->left_f);
-	return (0);
 }
