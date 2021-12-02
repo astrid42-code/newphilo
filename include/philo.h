@@ -49,7 +49,7 @@ int				ft_launch_philo(t_philo *philo, t_data *data);
 int				ft_time_to_eat(t_philo *philo, t_data *data);
 int				ft_take_fork(t_philo *philo, t_data *data);
 unsigned long	ft_gettime(t_timeval *start_time);
-unsigned long	ft_gettime_lasteat(/*unsigned long last_eat,*/ int i, t_data *data);
+unsigned long	ft_gettime_lasteat(int i, t_data *data);
 int				ft_check_count(t_data *data);
 
 // init / exit
@@ -64,7 +64,7 @@ void			ft_exit(t_data *data);
 void			ft_join_thread(t_data *data);
 
 // utils
-void			ft_print(char *str);
+int				ft_print(char *str, int ret);
 void			ft_print_action(t_philo *philo, t_data *data, char *str);
 void			ft_print_one(t_data *data);
 int				ft_strlen(char *str);

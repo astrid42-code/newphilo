@@ -6,15 +6,16 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 15:28:19 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/02 16:22:14 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/02 17:58:38 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_print(char *str)
+int	ft_print(char *str, int ret)
 {
 	write(1, str, ft_strlen(str));
+	return (ret);
 }
 
 void	ft_print_action(t_philo *philo, t_data *data, char *str)

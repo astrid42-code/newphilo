@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 15:27:50 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/11/30 11:33:28 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/02 18:10:08 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	ft_exit(t_data *data)
 	philo = (t_philo *)data->philo;
 	// if (data->must_eat != 0 && data->life == 0)
 	// 	ft_print("count reached\n");
-	// while (i < data->nb) // destroy ne fait rien sous linux
-	// {
-	// 	pthread_mutex_destroy(data->philo[i].left_f);
-	// 	i++;
-	// }
+	while (i < data->nb) // destroy ne fait rien sous linux
+	{
+		pthread_mutex_destroy(data->philo[i].left_f);
+		i++;
+	}
 	pthread_mutex_destroy(data->write);
 	// penser a free mes mutex
 }
@@ -68,7 +68,6 @@ int	ft_simple_exit(t_data *data)
 int	ft_check_end(t_data *data)
 {
 	pthread_mutex_lock(data->dead);
-	//printf("life = %d\n", data->life);
 	if (data->life == 1)
 	{
 		pthread_mutex_unlock(data->dead);

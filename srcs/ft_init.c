@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 15:27:35 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/02 17:07:38 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/02 18:11:31 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,7 @@ int	ft_init_data(t_data *data, char **av, int ac)
 		return (2);
 	data->philo = malloc(sizeof(t_philo) * data->nb);
 	if (!data->philo || !data)
-	{
-		ft_print("Error init\n");
-		return (1);
-	}
+		return (ft_print("Error init\n", 1));
 	memset(data->philo, 0, sizeof(t_philo) * data->nb);
 	if (ft_init_mutex(data) == 1)
 		return (1);
@@ -58,21 +55,16 @@ int	ft_init_philo(t_data *data)
 		i = 0;
 		while (i < data->nb)
 		{
-			//  unsigned long res = ft_gettime_lasteat(i, data);
-			//  printf("res = %lu\n", res);
-				//usleep(50);
 			if (ft_gettime_lasteat(i, data) == 1) // ft_gettime_lasteat(i, data) == 1
 			{
 				pthread_mutex_lock(data->dead);
 				data->life = 1;
 				pthread_mutex_unlock(data->dead);
-				//printf("count = %d musteat = %d life = %d\n", data->philo->count, data->must_eat, data->life);
 				ft_print_action(&data->philo[i], data, "died");
 				ft_join_thread(data);
 				return (1);
 			}
 			else if (ft_check_count(data))
-			//else if (data->philo->count == data->must_eat && data->life == 0)
 			{
 				return (ft_reach_count(data));
 			}
@@ -113,25 +105,19 @@ int	ft_init_mutex(t_data *data)
 		if (pthread_mutex_init(data->philo[i].left_f, NULL)
 			|| pthread_mutex_init(data->philo[i].m_last_eat, NULL)
 			|| pthread_mutex_init(data->philo[i].m_count, NULL))
-		{
-			ft_print("Error in mutex\n");
-			return (1);
-		}
+			return (ft_print("Error in mutex\n", 1));
 		i++;
 	}
 	ft_init_mutex_rfork(data);
-	data->write = malloc(sizeof(pthread_mutex_t)); // malloc pas forcement utile
-	data->m_time = malloc(sizeof(pthread_mutex_t)); // malloc pas forcement utile
-	data->dead = malloc(sizeof(pthread_mutex_t)); // malloc pas forcement utile
+	data->write = malloc(sizeof(pthread_mutex_t));
+	data->m_time = malloc(sizeof(pthread_mutex_t));
+	data->dead = malloc(sizeof(pthread_mutex_t));
 	data->synchro = malloc(sizeof(pthread_mutex_t));
 	if (pthread_mutex_init(data->write, NULL)
 		|| pthread_mutex_init(data->dead, NULL)
 		|| pthread_mutex_init(data->m_time, NULL)
 		|| pthread_mutex_init(data->synchro, NULL))
-	{
-		ft_print("Error in mutex\n");
-		return (1);
-	}
+		return (ft_print("Error in mutex\n", 1));
 	return (0);
 }
 
