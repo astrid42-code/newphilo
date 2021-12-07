@@ -6,7 +6,7 @@
 #    By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/19 15:27:57 by asgaulti          #+#    #+#              #
-#    Updated: 2021/12/03 11:02:16 by asgaulti         ###   ########.fr        #
+#    Updated: 2021/12/04 10:31:31 by asgaulti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ INCL	=	include
 
 $(NAME):	${OBJS}
 			${CC} ${CFLAGS} ${LFLAGS} ${OBJS} -o ${NAME} -pthread
-#attention : proble avec .h?
+			
 all:		${NAME}
 
 clean:

@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 15:28:07 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/11/30 11:55:50 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/04 12:28:11 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,27 @@ void	ft_usleep(unsigned int wait)
 	gettimeofday(&time, NULL);
 	while (ft_gettime(&time) < wait)
 		usleep(50);
+}
+
+int	ft_check_count_rout(t_philo *philo_cp, t_data *data)
+{
+	(void)data;
+	pthread_mutex_lock(philo_cp->m_count);
+	philo_cp->count++;
+	if (philo_cp->count == data->must_eat - 1)
+	{
+		pthread_mutex_unlock(philo_cp->m_count);
+		return (1);
+	}
+	pthread_mutex_unlock(philo_cp->m_count);
+	return (0);
+}
+
+void	ft_special(t_data *data)
+{
+	if (data->nb % 2 != 0)
+	{
+		if (2 * data->eat - data->sleep > 0)
+			ft_usleep(2 * data->eat - data->sleep);
+	}
 }

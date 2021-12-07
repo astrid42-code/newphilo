@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astridgaultier <astridgaultier@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 15:28:19 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/02 17:58:38 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/03 19:14:08 by astridgault      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,4 @@ void	ft_print_action(t_philo *philo, t_data *data, char *str)
 		printf("philo %d %s\n", philo->philo_nb, str);
 		pthread_mutex_unlock(data->write);
 	}
-}
-
-void	ft_print_one(t_data *data)
-{
-	printf("0 philo 1 has taken a fork\n");
-	printf("%d ", data->die / 1000);
-	printf("philo 1 is dead\n");
 }

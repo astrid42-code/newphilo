@@ -3,43 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_routine.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astridgaultier <astridgaultier@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 15:08:04 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/02 18:02:21 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/07 10:47:40 by astridgault      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*ft_routine(void *philo)
+void	*ft_routine(t_philo *philo_cp)
 {
 	int		i;
-	t_philo	*philo_cp;
 	t_data	*data;
 
 	i = 0;
-	philo_cp = (t_philo *)philo;
 	data = philo_cp->data;
 	pthread_mutex_lock(data->synchro);
 	pthread_mutex_unlock(data->synchro);
-	if (philo_cp->philo_nb % 2 == 0)
-		usleep(1000);
+	if (data->nb % 2 == 0 || data->nb == 1)
+	{
+		if (philo_cp->philo_nb % 2 == 0)
+			ft_usleep(data->eat);
+	}
+	else
+	{
+		if (philo_cp->philo_nb % 3 == 1)
+			ft_usleep(data->eat);
+		if (philo_cp->philo_nb % 3 == 2)
+			ft_usleep(2 * data->eat);
+	}
 	while (ft_check_end(data) == 0)
 	{
 		if (ft_launch_philo(philo_cp, data) == 1)
 			break ;
-		if (data->must_eat != 0)
-		{
-			pthread_mutex_lock(philo_cp->m_count);
-			if (philo_cp->count == data->must_eat)
-			{
-				pthread_mutex_unlock(philo_cp->m_count);
-				break ;
-			}
-			philo_cp->count++;
-			pthread_mutex_unlock(philo_cp->m_count);
-		}
 	}
 	return (NULL);
 }
@@ -52,10 +49,18 @@ int	ft_launch_philo(t_philo *philo, t_data *data)
 		return (1);
 	if (ft_check_end(data) == 1)
 		return (1);
-	ft_usleep(data->sleep);
+	if (data->must_eat > 0)
+	{
+		if (ft_check_count_rout(philo, data) == 1)
+			return (1);
+	}
 	if (ft_check_end(data) == 1)
 		return (1);
 	ft_print_action(philo, data, "is sleeping");
+	if (ft_check_end(data) == 1)
+		return (1);
+	ft_usleep(data->sleep);
+	ft_special(data);
 	if (ft_check_end(data) == 1)
 		return (1);
 	ft_print_action(philo, data, "is thinking");
@@ -84,29 +89,70 @@ int	ft_time_to_eat(t_philo *philo, t_data *data)
 
 int	ft_take_fork(t_philo *philo, t_data *data)
 {
-	pthread_mutex_lock(philo->left_f);
-	pthread_mutex_lock(philo->right_f);
+	if (philo->philo_nb == data->nb)
+	{
+		if (ft_special_one(data, philo))
+			return (1);
+	}
+	else
+	{
+		pthread_mutex_lock(philo->left_f);
+		pthread_mutex_lock(philo->right_f);
+	}
 	if (ft_check_end(data) == 1)
 	{
 		pthread_mutex_unlock(philo->left_f);
 		pthread_mutex_unlock(philo->right_f);
 		return (1);
 	}
-	ft_print_action(philo, data, "has taken a (left) fork");
+	ft_print_action(philo, data, "has taken a fork");
 	if (ft_check_end(data) == 1)
 	{
 		pthread_mutex_unlock(philo->left_f);
 		pthread_mutex_unlock(philo->right_f);
 		return (1);
 	}	
-	ft_print_action(philo, data, "has taken a (right) fork");
+	ft_print_action(philo, data, "has taken a fork");
 	return (0);
 }
 
-int	ft_reach_count(t_data *data)
+int	ft_special_one(t_data *data, t_philo *philo)
 {
-	ft_join_thread(data);
-	ft_print("count reached\n", 1);
-	ft_exit(data);
-	return (1);
+	pthread_mutex_lock(philo->right_f);
+	if (data->nb == 1)
+		ft_print_action(philo, data, "has taken a fork");
+	while (data->nb == 1)
+	{
+		if (ft_check_end(data))
+		{
+			pthread_mutex_unlock(philo->right_f);
+			return (1);
+		}
+	}
+	pthread_mutex_lock(philo->left_f);
+	return (0);
 }
+
+//pour démarrer la routine en cas de nombre impair :
+
+// if (index % 3 == 0)
+// 	pas sleep
+// if (index % 3 == 1)
+// 	sleep time to eat
+// if (index % 3 == 2)
+// 	sleep 2 time to eat
+
+// apres manger
+// attendre 2 tteat - 1 ttsleep
+
+//exemple :
+// 3 610 200 200
+
+// 0	1 mange
+// 200	1 dort
+// 200 2 mange
+// 400 1 pense
+// 400 2 dort
+// 400 3 mange
+// 600 1 mange
+// 600	2 pense

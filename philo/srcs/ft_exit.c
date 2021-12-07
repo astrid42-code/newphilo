@@ -6,7 +6,7 @@
 /*   By: asgaulti <asgaulti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 15:27:50 by asgaulti          #+#    #+#             */
-/*   Updated: 2021/12/03 11:20:01 by asgaulti         ###   ########.fr       */
+/*   Updated: 2021/12/03 12:26:24 by asgaulti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,9 @@ int	ft_simple_exit(t_data *data)
 	return (1);
 }
 
-int	ft_check_end(t_data *data)
+int	ft_reach_count(t_data *data)
 {
-	pthread_mutex_lock(data->dead);
-	if (data->life == 1)
-	{
-		pthread_mutex_unlock(data->dead);
-		return (1);
-	}
-	pthread_mutex_unlock(data->dead);
-	return (0);
+	ft_join_thread(data);
+	ft_print("count reached\n", 1);
+	return (1);
 }
